@@ -1,5 +1,5 @@
 // Dependencies
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const passportSetup = require('./config/passport');
 const htmlRoutes = require('./routes/htmlRoutes');
-const authRoutes= require('./routes/authRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 // Express Setup
 const app = express();
@@ -16,9 +16,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mongoose Setup
-mongoose.connect('mongodb://localhost/unit18Populater', {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  process.env.MONGO_DB_URI || 'mongodb://localhost/unit18Populater',
+  {
+    useNewUrlParser: true,
+  },
+  () => {
+    console.log('Connected to MongoDB');
+  },
+);
 
 // Passport Setup
 app.use(passport.initialize());
