@@ -18,6 +18,7 @@ passport.use(
         if (currentUser) {
           // User already registered
           console.log(`User is: ${currentUser}`);
+          done(null, currentUser);
         } else {
           // Create user
           new User({
@@ -27,9 +28,20 @@ passport.use(
             .save()
             .then((newUser) => {
               console.log(`User added! Details: ${newUser}`);
+              done(null, newUser);
             });
         }
       });
     },
   ),
 );
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then((user) => {
+    done(null, user);
+  });
+});
