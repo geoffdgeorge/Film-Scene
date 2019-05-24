@@ -13,15 +13,23 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
     (accessToken, refreshToken, profile, done) => {
-      // console.log(profile);
-      new User({
-        username: profile.displayName,
-        googleId: profile.id,
-      })
-        .save()
-        .then((newUser) => {
-          console.log(`User added! Details: ${newUser}`);
-        });
+      // Check for existence of user in database
+      User.findOne({ googleId: profile.id }).then((currentUser) => {
+        if (currentUser) {
+          // User already registered
+          console.log(`User is: ${currentUser}`);
+        } else {
+          // Create user
+          new User({
+            username: profile.displayName,
+            googleId: profile.id,
+          })
+            .save()
+            .then((newUser) => {
+              console.log(`User added! Details: ${newUser}`);
+            });
+        }
+      });
     },
   ),
 );
