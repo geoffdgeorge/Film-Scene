@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cookieSession = require('cookie-session');
 const passportSetup = require('./config/passport');
 const htmlRoutes = require('./routes/htmlRoutes');
 const authRoutes = require('./routes/authRoutes');
@@ -14,6 +15,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY],
+  }),
+);
 
 // Mongoose Setup
 mongoose.connect(
