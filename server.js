@@ -9,6 +9,7 @@ const cookieSession = require('cookie-session');
 const passportSetup = require('./config/passport');
 const htmlRoutes = require('./routes/htmlRoutes');
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Express Setup
 const app = express();
@@ -45,6 +46,7 @@ app.set('view engine', 'handlebars');
 // Routing Setup
 app.use('/', htmlRoutes);
 app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 
 const PORT = process.env.PORT || 4500;
 
