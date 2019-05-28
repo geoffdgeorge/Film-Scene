@@ -34,15 +34,17 @@ router.get('/articles', (req, res) => {
             .children('img')
             .attr('src');
 
-          db.Article.create(result)
-            .then((dbArticle) => {
-              // View the added result in the console
-              console.log(dbArticle);
-            })
-            .catch((err) => {
-              // If an error occurred, log it
-              console.log(err);
-            });
+          db.Article.findOne({ title: result.title }).then((searchedArticle) => {
+            if (!searchedArticle) {
+              db.Article.create(result)
+                .then((dbArticle) => {
+                  console.log(dbArticle);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          });
         });
 
         over('.post').each(function (i, element) {
@@ -59,15 +61,17 @@ router.get('/articles', (req, res) => {
             .find('img')
             .attr('src');
 
-          db.Article.create(result)
-            .then((dbArticle) => {
-              // View the added result in the console
-              console.log(dbArticle);
-            })
-            .catch((err) => {
-              // If an error occurred, log it
-              console.log(err);
-            });
+          db.Article.findOne({ title: result.title }).then((searchedArticle) => {
+            if (!searchedArticle) {
+              db.Article.create(result)
+                .then((dbArticle) => {
+                  console.log(dbArticle);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          });
         });
 
         fsr('article').each(function (i, element) {
@@ -85,15 +89,17 @@ router.get('/articles', (req, res) => {
             .find('img')
             .attr('data-src');
 
-          db.Article.create(result)
-            .then((dbArticle) => {
-              // View the added result in the console
-              console.log(dbArticle);
-            })
-            .catch((err) => {
-              // If an error occurred, log it
-              console.log(err);
-            });
+          db.Article.findOne({ title: result.title }).then((searchedArticle) => {
+            if (!searchedArticle) {
+              db.Article.create(result)
+                .then((dbArticle) => {
+                  console.log(dbArticle);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          });
         });
       }),
     );
