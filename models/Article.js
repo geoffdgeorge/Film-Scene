@@ -2,12 +2,20 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
-  username: {
+const articleSchema = new Schema({
+  title: {
     type: String,
     required: true,
   },
-  googleId: {
+  siteURL: {
+    type: String,
+    required: true,
+  },
+  linkURL: {
+    type: String,
+    required: true,
+  },
+  imgURL: {
     type: String,
     required: true,
   },
@@ -21,6 +29,6 @@ const userSchema = new Schema({
   ],
 });
 
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('article', articleSchema);
 
 module.exports = User;
