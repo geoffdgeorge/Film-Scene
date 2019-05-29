@@ -11,12 +11,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  notes: [
+  comments: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,
-      // The ObjectIds will refer to the ids in the Note model
-      ref: 'Note',
+      // The ObjectIds will refer to the ids in the Comment model
+      ref: 'Comment',
     },
   ],
 });

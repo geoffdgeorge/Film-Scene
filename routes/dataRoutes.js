@@ -3,6 +3,61 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const db = require('../models');
 
+router.post('/comment', (req, res) => {
+  const commentData = {
+    username: req.body.username,
+    message: req.body.message,
+  };
+
+  db.Comment.create(commentData)
+    .then((dbComment) => {
+      // Took a cue from this source to handle multiple promises for each comment: https://stackoverflow.com/questions/35381423/how-to-save-multiple-mongodb-collections-using-promise
+      const promises = [
+        new Promise((resolve, reject) => {
+          db.Article.findOneAndUpdate(
+            { _id: req.body.article_id },
+            { $push: { comments: dbComment._id } },
+            { new: true },
+            (err, done) => {
+              if (err) reject(err);
+              else resolve(done);
+            },
+          );
+        }),
+        new Promise((resolve, reject) => {
+          db.User.findOneAndUpdate(
+            { username: req.body.username },
+            { $push: { comments: dbComment._id } },
+            { new: true },
+            (err, done) => {
+              if (err) reject(err);
+              else resolve(done);
+            },
+          );
+        }),
+      ];
+      return Promise.all(promises);
+    })
+    .then((dbUpdates) => {
+      res.json(dbUpdates);
+    })
+    .catch((err) => {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
+
+router.get('/comments/:id', (req, res) => {
+  db.Article.find({ _id: req.params.id })
+    .populate('comments')
+    .then((dbUser) => {
+      res.json(dbUser);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 router.get('/articles', (req, res) => {
   axios
     .all([
