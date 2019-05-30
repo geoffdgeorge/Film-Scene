@@ -1,0 +1,26 @@
+* {
+	box-sizing: border-box;
+}
+
+@media only screen and (min-width: 320px) {
+
+    /* Body Styling */
+    .container {
+        display: grid;
+        grid-template: min-content / 1fr;
+        width: 100%
+    }
+
+    /* Nav Styling */
+    nav {
+        display: grid;
+        grid-template: 5rem / 1fr 1fr;
+        justify-items: center;
+        align-items: center;
+        background-color: #b8860b;
+    }
+
+    nav h1 {
+        margin: 0;
+    }
+}

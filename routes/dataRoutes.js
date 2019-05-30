@@ -58,7 +58,7 @@ router.get('/comments/:id', (req, res) => {
     });
 });
 
-router.get('/articles', (req, res) => {
+router.get('/articleScrape', (req, res) => {
   axios
     .all([
       axios.get('https://thespool.net/'),
@@ -78,7 +78,8 @@ router.get('/articles', (req, res) => {
             .children('header')
             .children('a')
             .children('h1')
-            .text();
+            .text()
+            .replace('\n', '');
           result.siteURL = 'thespool.net';
           result.linkURL = spool(this)
             .children('header')
@@ -156,10 +157,20 @@ router.get('/articles', (req, res) => {
             }
           });
         });
+
+        res.send('Scrape complete');
       }),
     );
-  // Send a message to the client
-  res.send('Scrape Complete');
+});
+
+router.get('/articles', (req, res) => {
+  db.Article.find({})
+    .then((dbArticles) => {
+      res.json(dbArticles);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 module.exports = router;
