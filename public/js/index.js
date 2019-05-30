@@ -1,6 +1,6 @@
 axios.get('/data/articleScrape').then(async (response) => {
   console.log(response);
-  setTimeout(getArticles, 2000);
+  setTimeout(getArticles, 1500);
 });
 
 function getArticles() {
