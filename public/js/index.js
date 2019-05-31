@@ -9,8 +9,35 @@ function getComments() {
   const articleDiv = this.parentNode;
   axios.get(`/data/comments/${id}`).then((response) => {
     const { comments } = response.data[0];
+
+    const commentsDiv = document.createElement('div');
+    commentsDiv.classList.add('comments-div');
+
     if (comments.length !== 0) {
       console.log(comments);
+
+      // Append existing comments to comments div first.
+
+      comments.forEach((comment) => {
+        const commentDiv = document.createElement('div');
+        const commentUsername = document.createElement('h4');
+        const commentP = document.createElement('p');
+        commentDiv.classList.add('comment');
+        commentUsername.textContent = comment.username;
+        commentP.textContent = comment.message;
+        commentDiv.appendChild(commentUsername);
+        commentDiv.appendChild(commentP);
+        commentsDiv.appendChild(commentDiv);
+      });
+
+      // Append comment text area last.
+
+      const commentTextArea = document.createElement('textarea');
+      const submitBtn = document.createElement('button');
+      submitBtn.textContent = 'Comment';
+      commentsDiv.appendChild(commentTextArea);
+      commentsDiv.appendChild(submitBtn);
+      articleDiv.appendChild(commentsDiv);
     } else {
       const commentsDiv = document.createElement('div');
       const commentTextArea = document.createElement('textarea');
@@ -22,6 +49,10 @@ function getComments() {
       articleDiv.appendChild(commentsDiv);
     }
   });
+}
+
+function postComment() {
+    
 }
 
 // Page-Load Calls
