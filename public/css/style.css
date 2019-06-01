@@ -12,10 +12,11 @@ a {
 	/* Body Styling */
 	.container {
 		display: grid;
-		grid-template: min-content / 1fr;
+		grid-template: min-content 1fr 3rem / 1fr;
 		justify-items: center;
 		align-items: center;
 		width: 100%;
+		height: 100vh;
 	}
 
 	/* Nav Styling */
@@ -51,10 +52,12 @@ a {
 
 	main {
 		display: grid;
-		grid-template: min-content / 1fr;
+		grid-template: fit-content / 1fr;
 		grid-gap: 1rem;
+		justify-items: center;
+		align-items: center;
 		width: 95%;
-		margin-top: 1rem;
+		margin: 1rem 0;
 	}
 
 	/* Article Styling */
@@ -77,29 +80,66 @@ a {
 
 	.article img {
 		width: 100%;
-    }
-    
-    .comments-div {
-        display: grid;
-        grid-template: min-content / 1fr;
-        grid-gap: .5rem;
-        padding: .5rem;
-        width: 100%;
-        background: #ffffff;
-    }
+	}
 
-    .comments-div span {
-        justify-self: center;
-    }
+	.comments-div {
+		display: grid;
+		grid-template: min-content / 1fr;
+		grid-gap: 0.5rem;
+		padding: 0.5rem;
+		width: 100%;
+		background: #ffffff;
+	}
 
-    .comments-div span:hover {
-        cursor: pointer;
-        text-shadow: 0.1rem 0.1rem 0.1rem #505050; 
-    }
+	.comments-div span {
+		justify-self: center;
+	}
 
-    .comment {
-        border-bottom: .2rem solid #000000;
-        padding-bottom: .5rem;
-    }
+	.comments-div span:hover {
+		cursor: pointer;
+		text-shadow: 0.1rem 0.1rem 0.1rem #505050;
+	}
 
+	.comment {
+		border-bottom: 0.2rem solid #000000;
+		padding-bottom: 0.5rem;
+	}
+
+	/* Login Page Styling */
+
+	#login-main {
+		font-family: "News Cycle", sans-serif;
+	}
+
+	#link-btn-div {
+		padding: 1rem;
+	}
+
+	.sign-in-link {
+		background-color: #e04736;
+		color: white;
+		text-decoration: none;
+		padding: 1rem;
+		font-size: 1.2rem;
+	}
+
+	.sign-in-link:hover {
+		box-shadow: 0.2rem 0.2rem 0.2rem #505050;
+	}
+
+	.sign-in-link:active {
+		background-color: #a13327;
+	}
+
+	.footer {
+		display: grid;
+		justify-items: center;
+		align-items: center;
+		background: gray;
+		color: #ffffff;
+		width: 100%;
+		height: 3rem;
+		font-family: "News Cycle", sans-serif;
+		font-size: 0.8rem;
+	}
 }

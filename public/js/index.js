@@ -28,14 +28,16 @@ function closeComments(e) {
 function getComments() {
   const { id } = this.dataset;
   const articleDiv = this.parentNode;
-  axios.get(`/data/open/${id}`);
+
   axios.get(`/data/comments/${id}`).then((response) => {
     const { comments } = response.data[0];
 
     const commentsDiv = document.createElement('div');
     commentsDiv.classList.add('comments-div');
 
-    if (comments.length !== 0) {
+    if (comments.length !== 0 && !this.parentNode.querySelector('.comments-div')) {
+      axios.get(`/data/open/${id}`);
+
       // Append existing comments to comments div first.
 
       comments.forEach((comment) => {
@@ -69,7 +71,8 @@ function getComments() {
       commentsDiv.appendChild(submitBtn);
       commentsDiv.appendChild(closeCommentsSpan);
       articleDiv.appendChild(commentsDiv);
-    } else {
+    } else if (!this.parentNode.querySelector('.comments-div')) {
+      axios.get(`/data/open/${id}`);
       const commentTextArea = document.createElement('textarea');
       const submitBtn = document.createElement('button');
       const closeCommentsIcon = document.createElement('i');
@@ -99,7 +102,6 @@ axios.get('/data/articleScrape').then((response) => {
 });
 
 axios.get('/data/articles').then((response) => {
-
   const articles = response.data;
 
   articles.forEach((article) => {
@@ -132,7 +134,6 @@ axios.get('/data/articles').then((response) => {
         commentsDiv.classList.add('comments-div');
 
         if (comments.length !== 0) {
-
           // Append existing comments to comments div first.
 
           comments.forEach((comment) => {
