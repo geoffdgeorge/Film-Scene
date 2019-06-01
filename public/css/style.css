@@ -88,4 +88,18 @@ a {
         background: #ffffff;
     }
 
+    .comments-div span {
+        justify-self: center;
+    }
+
+    .comments-div span:hover {
+        cursor: pointer;
+        text-shadow: 0.1rem 0.1rem 0.1rem #505050; 
+    }
+
+    .comment {
+        border-bottom: .2rem solid #000000;
+        padding-bottom: .5rem;
+    }
+
 }

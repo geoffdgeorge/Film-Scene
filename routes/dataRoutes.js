@@ -47,6 +47,14 @@ router.post('/comment', (req, res) => {
     });
 });
 
+router.get('/open/:id', (req, res) => {
+  db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { open: true } }).then(dbArticle => console.log(dbArticle));
+});
+
+router.get('/close/:id', (req, res) => {
+  db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { open: false } }).then(dbArticle => console.log(dbArticle));
+});
+
 router.get('/comments/:id', (req, res) => {
   db.Article.find({ _id: req.params.id })
     .populate('comments')
