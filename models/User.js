@@ -7,7 +7,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  googleId: {
+  thirdPartyId: {
     type: String,
     required: true,
   },

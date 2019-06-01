@@ -13,7 +13,7 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-// Auth with Google
+// Auth with Third Party
 router.get(
   '/google',
   passport.authenticate('google', {
@@ -21,8 +21,32 @@ router.get(
   }),
 );
 
-// Callback for Google Redirect
+router.get(
+  '/twitter',
+  passport.authenticate('twitter', {
+    scope: ['profile'],
+  }),
+);
+
+router.get(
+  '/facebook',
+  passport.authenticate('facebook', {
+    scope: ['email'],
+  }),
+);
+
+// Callback for Third-Party Redirects
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+  // res.send(req.user);
+  res.redirect('/user/');
+});
+
+router.get('/twitter/redirect', passport.authenticate('twitter'), (req, res) => {
+  // res.send(req.user);
+  res.redirect('/user/');
+});
+
+router.get('/facebook/redirect', passport.authenticate('facebook'), (req, res) => {
   // res.send(req.user);
   res.redirect('/user/');
 });

@@ -116,7 +116,6 @@ a {
 	}
 
 	.sign-in-link {
-		background-color: #e04736;
 		color: white;
 		text-decoration: none;
 		padding: 1rem;
@@ -127,9 +126,31 @@ a {
 		box-shadow: 0.2rem 0.2rem 0.2rem #505050;
 	}
 
-	.sign-in-link:active {
+	#google-link {
+		background-color: #e04736;
+	}
+
+	#google-link:active {
 		background-color: #a13327;
 	}
+
+	#facebook-link {
+		background-color: #4267b2;
+	}
+
+	#facebook-link:active {
+		background-color: #2b4272;
+	}
+
+	#twitter-link {
+		background-color: #1ca1f2;
+	}
+
+	#twitter-link:active {
+		background-color: #1877b3;
+	}
+
+	/* Footer Styling */
 
 	.footer {
 		display: grid;
