@@ -55,6 +55,43 @@ router.get('/close/:id', (req, res) => {
   db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { open: false } }).then(dbArticle => console.log(dbArticle));
 });
 
+router.post('/delete-comment', (req, res) => {
+  db.Comment.findOneAndDelete({ _id: req.body.commentID })
+    .then((dbComment) => {
+      // Took a cue from this source to handle multiple promises for each comment: https://stackoverflow.com/questions/35381423/how-to-save-multiple-mongodb-collections-using-promise
+      const promises = [
+        new Promise((resolve, reject) => {
+          db.Article.findOneAndUpdate(
+            { _id: req.body.articleID },
+            { $pull: { comments: req.body.commentID } },
+            (err, done) => {
+              if (err) reject(err);
+              else resolve(done);
+            },
+          );
+        }),
+        new Promise((resolve, reject) => {
+          db.User.findOneAndUpdate(
+            { username: req.body.username },
+            { $pull: { comments: req.body.commentID } },
+            (err, done) => {
+              if (err) reject(err);
+              else resolve(done);
+            },
+          );
+        }),
+      ];
+      return Promise.all(promises);
+    })
+    .then((dbUpdates) => {
+      res.json(dbUpdates);
+    })
+    .catch((err) => {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
+
 router.get('/comments/:id', (req, res) => {
   db.Article.find({ _id: req.params.id })
     .populate('comments')
