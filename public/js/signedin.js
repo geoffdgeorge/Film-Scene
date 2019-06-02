@@ -21,7 +21,7 @@ function postComment(e) {
 
 function deleteComment() {
   const { id } = this.dataset;
-  const commentBtnID = this.parentNode.parentNode.querySelector('.comment-btn').dataset.id;
+  const commentBtnID = this.parentNode.parentNode.parentNode.querySelector('.comment-btn').dataset.id;
   axios
     .post('/data/delete-comment', {
       commentID: id,
@@ -40,7 +40,7 @@ function closeComments() {
   axios.get(`/data/close/${id}`);
 }
 
-function printComments(comments, commentsDiv) {
+function printComments(comments, commentDisplayDiv) {
   comments.forEach((comment) => {
     const commentDiv = document.createElement('div');
     const textDiv = document.createElement('div');
@@ -52,6 +52,7 @@ function printComments(comments, commentsDiv) {
     textDiv.appendChild(commentUsername);
     textDiv.appendChild(commentP);
     commentDiv.appendChild(textDiv);
+    commentDiv.style.gridTemplate = 'min-content / 1fr';
 
     if (comment.username === main.dataset.username) {
       const deleteBtn = document.createElement('button');
@@ -62,21 +63,22 @@ function printComments(comments, commentsDiv) {
       deleteBtn.addEventListener('click', deleteComment);
       deleteBtn.setAttribute('data-id', comment._id);
       deleteBtn.appendChild(trashIcon);
+      commentDiv.style.gridTemplate = 'min-content / 4fr 1fr';
       commentDiv.appendChild(deleteBtn);
     }
 
-    commentsDiv.appendChild(commentDiv);
+    commentDisplayDiv.prepend(commentDiv);
   });
 }
 
-function printCommentsDiv(commentsDiv, id, articleDiv) {
+function printCommentsDiv(commentsDiv, id, articleDiv, commentDisplayDiv) {
   const commentTextArea = document.createElement('textarea');
   const submitBtn = document.createElement('button');
   const closeCommentsIcon = document.createElement('i');
   const closeCommentsSpan = document.createElement('span');
   closeCommentsIcon.classList.add('far');
   closeCommentsIcon.classList.add('fa-window-close');
-  closeCommentsSpan.textContent = ' Close Comments';
+  closeCommentsSpan.textContent = ' Close';
   closeCommentsSpan.prepend(closeCommentsIcon);
   closeCommentsSpan.setAttribute('data-id', id);
   closeCommentsSpan.addEventListener('click', closeComments);
@@ -84,6 +86,7 @@ function printCommentsDiv(commentsDiv, id, articleDiv) {
   submitBtn.setAttribute('data-id', id);
   submitBtn.classList.add('comment-btn');
   submitBtn.addEventListener('click', postComment);
+  commentsDiv.appendChild(commentDisplayDiv);
   commentsDiv.appendChild(commentTextArea);
   commentsDiv.appendChild(submitBtn);
   commentsDiv.appendChild(closeCommentsSpan);
@@ -98,15 +101,17 @@ function getComments() {
     const { comments } = response.data[0];
 
     const commentsDiv = document.createElement('div');
+    const commentDisplayDiv = document.createElement('div');
     commentsDiv.classList.add('comments-div');
+    commentDisplayDiv.classList.add('comment-display-div');
 
     if (comments.length !== 0 && !this.parentNode.querySelector('.comments-div')) {
       // Append existing comments to comments div first.
-      printComments(comments, commentsDiv);
+      printComments(comments, commentDisplayDiv);
       // Append comment text area last.
-      printCommentsDiv(commentsDiv, id, articleDiv);
+      printCommentsDiv(commentsDiv, id, articleDiv, commentDisplayDiv);
     } else if (!this.parentNode.querySelector('.comments-div')) {
-      printCommentsDiv(commentsDiv, id, articleDiv);
+      printCommentsDiv(commentsDiv, id, articleDiv, commentDisplayDiv);
     }
   });
 }
@@ -127,13 +132,17 @@ axios.get('/data/articles').then((response) => {
     const newArticleWebsite = document.createElement('h6');
     const newArticleLink = document.createElement('a');
     const newCommentsBtn = document.createElement('button');
+    const newCommentsIcon = document.createElement('i');
     newArticleDiv.classList.add('article');
     newArticleImg.src = article.imgURL;
     newArticleTitle.textContent = article.title;
     newArticleWebsite.textContent = article.siteURL;
-    newCommentsBtn.textContent = 'Comments';
+    newCommentsIcon.classList.add('far');
+    newCommentsIcon.classList.add('fa-comments');
+    newCommentsBtn.textContent = ' Comments';
     newCommentsBtn.setAttribute('data-id', article._id);
     newCommentsBtn.classList.add('comment-btn');
+    newCommentsBtn.prepend(newCommentsIcon);
     newCommentsBtn.addEventListener('click', getComments);
     newArticleLink.setAttribute('href', article.linkURL);
     newArticleLink.appendChild(newArticleTitle);
@@ -148,15 +157,17 @@ axios.get('/data/articles').then((response) => {
         const { comments } = response.data[0];
 
         const commentsDiv = document.createElement('div');
+        const commentDisplayDiv = document.createElement('div');
         commentsDiv.classList.add('comments-div');
+        commentDisplayDiv.classList.add('comment-display-div');
 
         if (comments.length !== 0) {
           // Append existing comments to comments div first.
-          printComments(comments, commentsDiv);
+          printComments(comments, commentDisplayDiv);
           // Append comment text area last.
-          printCommentsDiv(commentsDiv, article._id, newArticleDiv);
+          printCommentsDiv(commentsDiv, article._id, newArticleDiv, commentDisplayDiv);
         } else {
-          printCommentsDiv(commentsDiv, article._id, newArticleDiv);
+          printCommentsDiv(commentsDiv, article._id, newArticleDiv, commentDisplayDiv);
         }
       });
     }

@@ -105,6 +105,7 @@ a {
 		grid-gap: 0.5rem;
 		padding: 0.5rem;
 		width: 100%;
+		overflow-y: auto;
 		background: #ffffff;
 	}
 
@@ -117,9 +118,16 @@ a {
 		text-shadow: 0.1rem 0.1rem 0.1rem #505050;
 	}
 
+	.comment-display-div {
+		display: grid;
+		grid-template: min-content / 1fr;
+		grid-gap: 0.5rem;
+		max-height: 10rem;
+		overflow-y: auto;
+	}
+
 	.comment {
 		display: grid;
-		grid-template: min-content / 4fr 1fr;
 		grid-gap: 1rem;
 		align-items: center;
 		border-bottom: 0.1rem solid #000000;
@@ -130,6 +138,7 @@ a {
 		padding: .5rem;
 		color: white;
 		background: #c20000;
+		margin-right: .5rem;
 	}
 
 	.delete-btn:hover {
