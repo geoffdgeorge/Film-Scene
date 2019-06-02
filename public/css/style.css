@@ -95,6 +95,7 @@ a {
 	}
 
 	.comment-btn:hover {
+		cursor: pointer;
 		background: linear-gradient(#808080, #c0c0c0, #808080)
 	}
 
@@ -118,15 +119,27 @@ a {
 
 	.comment {
 		display: grid;
+		grid-template: min-content / 4fr 1fr;
+		grid-gap: 1rem;
+		align-items: center;
 		border-bottom: 0.1rem solid #000000;
 		padding-bottom: 0.5rem;
 	}
 
 	.delete-btn {
-		justify-self: center;
 		padding: .5rem;
 		color: white;
 		background: #c20000;
+	}
+
+	.delete-btn:hover {
+		cursor: pointer;
+		box-shadow: 0.2rem 0.2rem 0.2rem #505050;
+	}
+
+	.delete-btn:active {
+		background: #910000;
+		outline: 0;
 	}
 
 	/* Login Page Styling */
@@ -140,10 +153,11 @@ a {
 
 	.sign-in-link {
 		font-family: "News Cycle", sans-serif;
+		font-size: 1.2rem;
+		text-align: center;
 		color: white;
 		text-decoration: none;
 		padding: 1rem;
-		font-size: 1.2rem;
 	}
 
 	.sign-in-link:hover {
@@ -210,5 +224,15 @@ a {
 
 	#link-btn-div {
 		grid-column: 1 / 4;
+	}
+}
+
+@media only screen and (min-width: 1280px) {
+	main {
+		grid-template: min-content / 1fr 1fr 1fr 1fr;
+	}
+
+	#link-btn-div {
+		grid-column: 1 / 5;
 	}
 }

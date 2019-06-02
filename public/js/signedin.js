@@ -43,13 +43,15 @@ function closeComments() {
 function printComments(comments, commentsDiv) {
   comments.forEach((comment) => {
     const commentDiv = document.createElement('div');
+    const textDiv = document.createElement('div');
     const commentUsername = document.createElement('h4');
     const commentP = document.createElement('p');
     commentDiv.classList.add('comment');
     commentUsername.textContent = comment.username;
     commentP.textContent = comment.message;
-    commentDiv.appendChild(commentUsername);
-    commentDiv.appendChild(commentP);
+    textDiv.appendChild(commentUsername);
+    textDiv.appendChild(commentP);
+    commentDiv.appendChild(textDiv);
 
     if (comment.username === main.dataset.username) {
       const deleteBtn = document.createElement('button');
@@ -139,7 +141,7 @@ axios.get('/data/articles').then((response) => {
     newArticleDiv.appendChild(newArticleImg);
     newArticleDiv.appendChild(newArticleWebsite);
     newArticleDiv.appendChild(newCommentsBtn);
-    main.appendChild(newArticleDiv);
+    main.prepend(newArticleDiv);
 
     if (article.open) {
       axios.get(`/data/comments/${article._id}`).then((response) => {
