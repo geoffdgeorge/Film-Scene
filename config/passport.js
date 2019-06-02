@@ -13,6 +13,7 @@ passport.use(
       callbackURL: '/auth/google/redirect',
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      proxy: true,
     },
     (accessToken, refreshToken, profile, done) => {
       // Check for existence of user in database
@@ -44,6 +45,7 @@ passport.use(
       consumerKey: process.env.TWITTER_CONSUMER_KEY,
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
       callbackURL: '/auth/twitter/redirect',
+      proxy: true,
     },
     (token, tokenSecret, profile, done) => {
       User.findOne({ thirdPartyId: profile.id }).then((currentUser) => {
@@ -74,6 +76,7 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: '/auth/facebook/redirect',
+      proxy: true,
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ thirdPartyId: profile.id }).then((currentUser) => {
