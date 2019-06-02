@@ -25,74 +25,59 @@ function closeComments(e) {
   axios.get(`/data/close/${id}`);
 }
 
+function printComments(comments, commentsDiv) {
+  comments.forEach((comment) => {
+    const commentDiv = document.createElement('div');
+    const commentUsername = document.createElement('h4');
+    const commentP = document.createElement('p');
+    commentDiv.classList.add('comment');
+    commentUsername.textContent = comment.username;
+    commentP.textContent = comment.message;
+    commentDiv.appendChild(commentUsername);
+    commentDiv.appendChild(commentP);
+    commentsDiv.appendChild(commentDiv);
+  });
+}
+
+function printCommentsDiv(commentsDiv, id, articleDiv) {
+  const commentTextArea = document.createElement('textarea');
+  const submitBtn = document.createElement('button');
+  const closeCommentsIcon = document.createElement('i');
+  const closeCommentsSpan = document.createElement('span');
+  closeCommentsIcon.classList.add('far');
+  closeCommentsIcon.classList.add('fa-window-close');
+  closeCommentsSpan.textContent = ' Close Comments';
+  closeCommentsSpan.prepend(closeCommentsIcon);
+  closeCommentsSpan.setAttribute('data-id', id);
+  closeCommentsSpan.addEventListener('click', closeComments);
+  submitBtn.textContent = 'Comment';
+  submitBtn.setAttribute('data-id', id);
+  submitBtn.classList.add('comment-btn');
+  submitBtn.addEventListener('click', postComment);
+  commentsDiv.appendChild(commentTextArea);
+  commentsDiv.appendChild(submitBtn);
+  commentsDiv.appendChild(closeCommentsSpan);
+  articleDiv.appendChild(commentsDiv);
+}
+
 function getComments() {
   const { id } = this.dataset;
   const articleDiv = this.parentNode;
 
   axios.get(`/data/comments/${id}`).then((response) => {
+    axios.get(`/data/open/${id}`);
     const { comments } = response.data[0];
 
     const commentsDiv = document.createElement('div');
     commentsDiv.classList.add('comments-div');
 
     if (comments.length !== 0 && !this.parentNode.querySelector('.comments-div')) {
-      axios.get(`/data/open/${id}`);
-
       // Append existing comments to comments div first.
-
-      comments.forEach((comment) => {
-        const commentDiv = document.createElement('div');
-        const commentUsername = document.createElement('h4');
-        const commentP = document.createElement('p');
-        commentDiv.classList.add('comment');
-        commentUsername.textContent = comment.username;
-        commentP.textContent = comment.message;
-        commentDiv.appendChild(commentUsername);
-        commentDiv.appendChild(commentP);
-        commentsDiv.appendChild(commentDiv);
-      });
-
+      printComments(comments, commentsDiv);
       // Append comment text area last.
-
-      const commentTextArea = document.createElement('textarea');
-      const submitBtn = document.createElement('button');
-      const closeCommentsIcon = document.createElement('i');
-      const closeCommentsSpan = document.createElement('span');
-      closeCommentsIcon.classList.add('far');
-      closeCommentsIcon.classList.add('fa-window-close');
-      closeCommentsSpan.textContent = ' Close Comments';
-      closeCommentsSpan.prepend(closeCommentsIcon);
-      closeCommentsSpan.setAttribute('data-id', id);
-      closeCommentsSpan.addEventListener('click', closeComments);
-      submitBtn.textContent = 'Comment';
-      submitBtn.setAttribute('data-id', id);
-      submitBtn.classList.add('comment-btn');
-      submitBtn.addEventListener('click', postComment);
-      commentsDiv.appendChild(commentTextArea);
-      commentsDiv.appendChild(submitBtn);
-      commentsDiv.appendChild(closeCommentsSpan);
-      articleDiv.appendChild(commentsDiv);
+      printCommentsDiv(commentsDiv, id, articleDiv);
     } else if (!this.parentNode.querySelector('.comments-div')) {
-      axios.get(`/data/open/${id}`);
-      const commentTextArea = document.createElement('textarea');
-      const submitBtn = document.createElement('button');
-      const closeCommentsIcon = document.createElement('i');
-      const closeCommentsSpan = document.createElement('span');
-      closeCommentsIcon.classList.add('far');
-      closeCommentsIcon.classList.add('fa-window-close');
-      closeCommentsSpan.textContent = ' Close Comments';
-      closeCommentsSpan.prepend(closeCommentsIcon);
-      closeCommentsSpan.setAttribute('data-id', id);
-      closeCommentsSpan.addEventListener('click', closeComments);
-      commentsDiv.classList.add('comments-div');
-      submitBtn.textContent = 'Comment';
-      submitBtn.setAttribute('data-id', id);
-      submitBtn.classList.add('comment-btn');
-      submitBtn.addEventListener('click', postComment);
-      commentsDiv.appendChild(commentTextArea);
-      commentsDiv.appendChild(submitBtn);
-      commentsDiv.appendChild(closeCommentsSpan);
-      articleDiv.appendChild(commentsDiv);
+      printCommentsDiv(commentsDiv, id, articleDiv);
     }
   });
 }
@@ -138,59 +123,11 @@ axios.get('/data/articles').then((response) => {
 
         if (comments.length !== 0) {
           // Append existing comments to comments div first.
-
-          comments.forEach((comment) => {
-            const commentDiv = document.createElement('div');
-            const commentUsername = document.createElement('h4');
-            const commentP = document.createElement('p');
-            commentDiv.classList.add('comment');
-            commentUsername.textContent = comment.username;
-            commentP.textContent = comment.message;
-            commentDiv.appendChild(commentUsername);
-            commentDiv.appendChild(commentP);
-            commentsDiv.appendChild(commentDiv);
-          });
-
+          printComments(comments, commentsDiv);
           // Append comment text area last.
-
-          const commentTextArea = document.createElement('textarea');
-          const submitBtn = document.createElement('button');
-          const closeCommentsIcon = document.createElement('i');
-          const closeCommentsSpan = document.createElement('span');
-          closeCommentsIcon.classList.add('far');
-          closeCommentsIcon.classList.add('fa-window-close');
-          closeCommentsSpan.textContent = ' Close Comments';
-          closeCommentsSpan.prepend(closeCommentsIcon);
-          closeCommentsSpan.setAttribute('data-id', article._id);
-          closeCommentsSpan.addEventListener('click', closeComments);
-          submitBtn.textContent = 'Comment';
-          submitBtn.setAttribute('data-id', article._id);
-          submitBtn.classList.add('comment-btn');
-          submitBtn.addEventListener('click', postComment);
-          commentsDiv.appendChild(commentTextArea);
-          commentsDiv.appendChild(submitBtn);
-          commentsDiv.appendChild(closeCommentsSpan);
-          newArticleDiv.appendChild(commentsDiv);
+          printCommentsDiv(commentsDiv, article._id, newArticleDiv);
         } else {
-          const commentTextArea = document.createElement('textarea');
-          const submitBtn = document.createElement('button');
-          const closeCommentsIcon = document.createElement('i');
-          const closeCommentsSpan = document.createElement('span');
-          closeCommentsIcon.classList.add('far');
-          closeCommentsIcon.classList.add('fa-window-close');
-          closeCommentsSpan.textContent = ' Close Comments';
-          closeCommentsSpan.prepend(closeCommentsIcon);
-          closeCommentsSpan.setAttribute('data-id', article._id);
-          closeCommentsSpan.addEventListener('click', closeComments);
-          commentsDiv.classList.add('comments-div');
-          submitBtn.textContent = 'Comment';
-          submitBtn.setAttribute('data-id', article._id);
-          submitBtn.classList.add('comment-btn');
-          submitBtn.addEventListener('click', postComment);
-          commentsDiv.appendChild(commentTextArea);
-          commentsDiv.appendChild(submitBtn);
-          commentsDiv.appendChild(closeCommentsSpan);
-          newArticleDiv.appendChild(commentsDiv);
+          printCommentsDiv(commentsDiv, article._id, newArticleDiv);
         }
       });
     }
