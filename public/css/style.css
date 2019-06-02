@@ -22,26 +22,32 @@ a {
 	/* Nav Styling */
 
 	header {
+		display: grid;
+		justify-items: center;
+		align-items: center;
 		width: 100%;
+		background-color: #b8860b;
 	}
 
 	nav {
 		display: grid;
 		grid-template: 5rem / 2fr 1fr;
-		justify-items: center;
 		align-items: center;
 		background-color: #b8860b;
-		width: 100%;
+		width: 95%;
 	}
 
 	nav img {
-		width: 11rem;
+		width: 13rem;
+		justify-self: flex-start;
 	}
 
 	nav a {
 		font-family: "News Cycle", sans-serif;
+		font-size: 1.2rem;
 		color: #ffffff;
 		font-weight: bold;
+		justify-self: flex-end;
 	}
 
 	nav a:hover {
@@ -52,10 +58,10 @@ a {
 
 	main {
 		display: grid;
-		grid-template: fit-content / 1fr;
+		grid-template: min-content / 1fr;
 		grid-gap: 1rem;
 		justify-items: center;
-		align-items: center;
+		align-items: flex-start;
 		width: 95%;
 		margin: 1rem 0;
 	}
@@ -63,6 +69,7 @@ a {
 	/* Article Styling */
 
 	.article {
+		font-family: "News Cycle", sans-serif;
 		display: grid;
 		grid-template: min-content / 1fr;
 		grid-gap: 1rem;
@@ -73,13 +80,22 @@ a {
 
 	.article h3,
 	.article h6 {
-		font-family: "News Cycle", sans-serif;
 		font-weight: normal;
 		color: aliceblue;
 	}
 
 	.article img {
 		width: 100%;
+	}
+
+	.comment-btn {
+		padding: .5rem;
+		color: white;
+		background: linear-gradient(#c0c0c0, #808080, #c0c0c0)
+	}
+
+	.comment-btn:hover {
+		background: linear-gradient(#808080, #c0c0c0, #808080)
 	}
 
 	.comments-div {
@@ -101,21 +117,29 @@ a {
 	}
 
 	.comment {
-		border-bottom: 0.2rem solid #000000;
+		display: grid;
+		border-bottom: 0.1rem solid #000000;
 		padding-bottom: 0.5rem;
+	}
+
+	.delete-btn {
+		justify-self: center;
+		padding: .5rem;
+		color: white;
+		background: #c20000;
 	}
 
 	/* Login Page Styling */
 
-	#login-main {
-		font-family: "News Cycle", sans-serif;
-	}
-
 	#link-btn-div {
+		display: grid;
+		grid-template: min-content / 1fr;
+		grid-gap: 1rem;
 		padding: 1rem;
 	}
 
 	.sign-in-link {
+		font-family: "News Cycle", sans-serif;
 		color: white;
 		text-decoration: none;
 		padding: 1rem;
@@ -162,5 +186,29 @@ a {
 		height: 3rem;
 		font-family: "News Cycle", sans-serif;
 		font-size: 0.8rem;
+	}
+}
+
+@media only screen and (min-width: 640px) {
+	nav img {
+		width: 20rem;
+	}
+
+	main {
+		grid-template: min-content / 1fr 1fr;
+	}
+
+	#link-btn-div {
+		grid-column: 1 / 3;
+	}
+}
+
+@media only screen and (min-width: 960px) {
+	main {
+		grid-template: min-content / 1fr 1fr 1fr;
+	}
+
+	#link-btn-div {
+		grid-column: 1 / 4;
 	}
 }

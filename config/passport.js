@@ -75,7 +75,7 @@ passport.use(
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: '/auth/facebook/redirect',
     },
-    ((accessToken, refreshToken, profile, done) => {
+    (accessToken, refreshToken, profile, done) => {
       User.findOne({ thirdPartyId: profile.id }).then((currentUser) => {
         if (currentUser) {
           // User already registered
@@ -94,7 +94,7 @@ passport.use(
             });
         }
       });
-    }),
+    },
   ),
 );
 

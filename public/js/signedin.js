@@ -62,6 +62,19 @@ function getComments() {
         commentP.textContent = comment.message;
         commentDiv.appendChild(commentUsername);
         commentDiv.appendChild(commentP);
+
+        if (comment.username === main.dataset.username) {
+          const deleteBtn = document.createElement('button');
+          const trashIcon = document.createElement('i');
+          trashIcon.classList.add('far');
+          trashIcon.classList.add('fa-trash-alt');
+          deleteBtn.classList.add('delete-btn');
+          deleteBtn.addEventListener('click', deleteComment);
+          deleteBtn.setAttribute('data-id', comment._id);
+          deleteBtn.appendChild(trashIcon);
+          commentDiv.appendChild(deleteBtn);
+        }
+
         commentsDiv.appendChild(commentDiv);
       });
 
@@ -132,6 +145,7 @@ axios.get('/data/articles').then((response) => {
     newArticleWebsite.textContent = article.siteURL;
     newCommentsBtn.textContent = 'Comments';
     newCommentsBtn.setAttribute('data-id', article._id);
+    newCommentsBtn.classList.add('comment-btn');
     newCommentsBtn.addEventListener('click', getComments);
     newArticleLink.setAttribute('href', article.linkURL);
     newArticleLink.appendChild(newArticleTitle);
@@ -163,10 +177,13 @@ axios.get('/data/articles').then((response) => {
 
             if (comment.username === main.dataset.username) {
               const deleteBtn = document.createElement('button');
+              const trashIcon = document.createElement('i');
+              trashIcon.classList.add('far');
+              trashIcon.classList.add('fa-trash-alt');
               deleteBtn.classList.add('delete-btn');
               deleteBtn.addEventListener('click', deleteComment);
-              deleteBtn.textContent = 'Delete Comment';
               deleteBtn.setAttribute('data-id', comment._id);
+              deleteBtn.appendChild(trashIcon);
               commentDiv.appendChild(deleteBtn);
             }
 

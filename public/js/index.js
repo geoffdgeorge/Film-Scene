@@ -66,6 +66,7 @@ function getComments() {
       closeCommentsSpan.addEventListener('click', closeComments);
       submitBtn.textContent = 'Comment';
       submitBtn.setAttribute('data-id', id);
+      submitBtn.classList.add('comment-btn');
       submitBtn.addEventListener('click', postComment);
       commentsDiv.appendChild(commentTextArea);
       commentsDiv.appendChild(submitBtn);
@@ -86,6 +87,7 @@ function getComments() {
       commentsDiv.classList.add('comments-div');
       submitBtn.textContent = 'Comment';
       submitBtn.setAttribute('data-id', id);
+      submitBtn.classList.add('comment-btn');
       submitBtn.addEventListener('click', postComment);
       commentsDiv.appendChild(commentTextArea);
       commentsDiv.appendChild(submitBtn);
@@ -117,6 +119,7 @@ axios.get('/data/articles').then((response) => {
     newArticleWebsite.textContent = article.siteURL;
     newCommentsBtn.textContent = 'Comments';
     newCommentsBtn.setAttribute('data-id', article._id);
+    newCommentsBtn.classList.add('comment-btn');
     newCommentsBtn.addEventListener('click', getComments);
     newArticleLink.setAttribute('href', article.linkURL);
     newArticleLink.appendChild(newArticleTitle);
@@ -162,6 +165,7 @@ axios.get('/data/articles').then((response) => {
           closeCommentsSpan.addEventListener('click', closeComments);
           submitBtn.textContent = 'Comment';
           submitBtn.setAttribute('data-id', article._id);
+          submitBtn.classList.add('comment-btn');
           submitBtn.addEventListener('click', postComment);
           commentsDiv.appendChild(commentTextArea);
           commentsDiv.appendChild(submitBtn);
@@ -181,6 +185,7 @@ axios.get('/data/articles').then((response) => {
           commentsDiv.classList.add('comments-div');
           submitBtn.textContent = 'Comment';
           submitBtn.setAttribute('data-id', article._id);
+          submitBtn.classList.add('comment-btn');
           submitBtn.addEventListener('click', postComment);
           commentsDiv.appendChild(commentTextArea);
           commentsDiv.appendChild(submitBtn);
