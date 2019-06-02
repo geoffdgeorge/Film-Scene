@@ -21,7 +21,8 @@ function postComment(e) {
 
 function deleteComment() {
   const { id } = this.dataset;
-  const commentBtnID = this.parentNode.parentNode.parentNode.querySelector('.comment-btn').dataset.id;
+  const commentBtnID = this.parentNode.parentNode.parentNode.querySelector('.comment-btn').dataset
+    .id;
   axios
     .post('/data/delete-comment', {
       commentID: id,
