@@ -33,6 +33,6 @@ const articleSchema = new Schema({
   ],
 });
 
-const User = mongoose.model('article', articleSchema);
+const Article = mongoose.model('article', articleSchema);
 
-module.exports = User;
+module.exports = Article;
