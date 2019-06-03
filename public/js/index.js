@@ -104,12 +104,15 @@ axios.get('/data/articles').then((response) => {
     const newArticleWebsite = document.createElement('h6');
     const newArticleTitleLink = document.createElement('a');
     const newArticleImgLink = document.createElement('a');
+    const newArticleSummary = document.createElement('p');
     const newCommentsBtn = document.createElement('button');
     const newCommentsIcon = document.createElement('i');
     newArticleDiv.classList.add('article');
     newArticleImg.src = article.imgURL;
     newArticleTitle.textContent = article.title;
     newArticleWebsite.textContent = article.siteURL;
+    newArticleSummary.textContent = article.summary;
+    newArticleSummary.classList.add('summary');
     newCommentsIcon.classList.add('far');
     newCommentsIcon.classList.add('fa-comments');
     newCommentsBtn.textContent = ' Comments';
@@ -123,6 +126,7 @@ axios.get('/data/articles').then((response) => {
     newArticleImgLink.appendChild(newArticleImg);
     newArticleDiv.appendChild(newArticleTitleLink);
     newArticleDiv.appendChild(newArticleImgLink);
+    newArticleDiv.appendChild(newArticleSummary);
     newArticleDiv.appendChild(newArticleWebsite);
     newArticleDiv.appendChild(newCommentsBtn);
     main.prepend(newArticleDiv);

@@ -19,6 +19,10 @@ const articleSchema = new Schema({
     type: String,
     required: true,
   },
+  summary: {
+    type: String,
+    required: true,
+  },
   open: {
     type: Boolean,
     default: false,

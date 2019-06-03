@@ -116,24 +116,28 @@ router.get('/articleScrape', (req, res) => {
         const over = cheerio.load(overthinkingRes.data);
         const fsr = cheerio.load(filmSchoolRes.data);
 
-        spool('div .hover__handler').each(function (i, element) {
+        spool('article').each(function (i, element) {
           const result = {};
 
           result.title = spool(this)
-            .children('header')
-            .children('a')
-            .children('h1')
+            .find('h1')
             .text()
             .replace('\n', '');
           result.siteURL = 'thespool.net';
           result.linkURL = spool(this)
+            .children('div .hover__handler')
             .children('header')
             .children('a')
             .attr('href');
           result.imgURL = spool(this)
+            .children('div .hover__handler')
             .children('aside')
             .children('img')
             .attr('src');
+          result.summary = spool(this)
+            .find('p')
+            .text()
+            .trim();
 
           db.Article.findOne({ title: result.title }).then((searchedArticle) => {
             if (!searchedArticle) {
@@ -161,6 +165,11 @@ router.get('/articleScrape', (req, res) => {
           result.imgURL = over(this)
             .find('img')
             .attr('src');
+          result.summary = over(this)
+            .find('.entry--archive__excerpt')
+            .first('p')
+            .text()
+            .split('\n')[0];
 
           db.Article.findOne({ title: result.title }).then((searchedArticle) => {
             if (!searchedArticle) {
@@ -189,6 +198,9 @@ router.get('/articleScrape', (req, res) => {
           result.imgURL = fsr(this)
             .find('img')
             .attr('data-src');
+          result.summary = fsr(this)
+            .find('p')
+            .text();
 
           db.Article.findOne({ title: result.title }).then((searchedArticle) => {
             if (!searchedArticle) {
