@@ -131,7 +131,8 @@ axios.get('/data/articles').then((response) => {
     const newArticleImg = document.createElement('img');
     const newArticleTitle = document.createElement('h3');
     const newArticleWebsite = document.createElement('h6');
-    const newArticleLink = document.createElement('a');
+    const newArticleTitleLink = document.createElement('a');
+    const newArticleImgLink = document.createElement('a');
     const newCommentsBtn = document.createElement('button');
     const newCommentsIcon = document.createElement('i');
     newArticleDiv.classList.add('article');
@@ -145,10 +146,12 @@ axios.get('/data/articles').then((response) => {
     newCommentsBtn.classList.add('comment-btn');
     newCommentsBtn.prepend(newCommentsIcon);
     newCommentsBtn.addEventListener('click', getComments);
-    newArticleLink.setAttribute('href', article.linkURL);
-    newArticleLink.appendChild(newArticleTitle);
-    newArticleDiv.appendChild(newArticleLink);
-    newArticleDiv.appendChild(newArticleImg);
+    newArticleTitleLink.setAttribute('href', article.linkURL);
+    newArticleTitleLink.appendChild(newArticleTitle);
+    newArticleImgLink.setAttribute('href', article.linkURL);
+    newArticleImgLink.appendChild(newArticleImg);
+    newArticleDiv.appendChild(newArticleTitleLink);
+    newArticleDiv.appendChild(newArticleImgLink);
     newArticleDiv.appendChild(newArticleWebsite);
     newArticleDiv.appendChild(newCommentsBtn);
     main.prepend(newArticleDiv);
