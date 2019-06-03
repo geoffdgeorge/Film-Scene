@@ -95,8 +95,8 @@ router.post('/delete-comment', (req, res) => {
 router.get('/comments/:id', (req, res) => {
   db.Article.find({ _id: req.params.id })
     .populate('comments')
-    .then((dbUser) => {
-      res.json(dbUser);
+    .then((dbArticle) => {
+      res.json(dbArticle);
     })
     .catch((err) => {
       res.json(err);
