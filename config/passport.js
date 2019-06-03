@@ -10,7 +10,7 @@ passport.use(
   new GoogleStrategy(
     {
       // options for the strategy
-      callbackURL: 'https://mysterious-thicket-10860.herokuapp.com/auth/google/redirect',
+      callbackURL: '/auth/google/redirect',
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       proxy: true,
