@@ -2,22 +2,32 @@
 
 Film Scene is a full-stack news-aggregation app for long-form film commentary that stores articles, users, and comments in a MongoDB database. For the MVP, the articles are scraped, stored, and populated from three sites: FilmSchoolRejects.com, TheSpool.net, and OverthinkingIt.com. Users can post anonymously when not signed in but can only delete their comments if they post them while signed in via third-part authentication.
 
+# ToC
+
+* ### [Dependencies](https://github.com/geoffdgeorge/Film-Scene#dependencies)
+    * ##### [Front End](https://github.com/geoffdgeorge/Film-Scene#front-end)
+    * ##### [Back End](https://github.com/geoffdgeorge/Film-Scene#back-end)
+* ### [How It Works](https://github.com/geoffdgeorge/Film-Scene#how-it-works)
+* ### [Future Development](https://github.com/geoffdgeorge/Film-Scene#future-development)
+    * ##### [Awaiting Scraping](https://github.com/geoffdgeorge/Film-Scene#awaiting-scraping)
+    * ##### [Additional Styling](https://github.com/geoffdgeorge/Film-Scene#additional-styling)
+
 # Dependencies
 
 ### Front End
 
-- [Axios]() (to handle requests to the server)
-- Handlebars (to render page views)
+- [Axios](https://www.npmjs.com/package/axios) (to handle requests to the server)
+- [Handlebars](https://handlebarsjs.com/) (to render page views)
 
 ### Back End
 
-- Express (to handle routing)
-- Express Handlebars (to handle renders for the Handlebars view engine)
-- Mongoose (to create models for articles, users, and comments)
-- Passport (to handle third-party OAuth authentication)
-- CookieSession (to handle the creation of cookies for signed-in users)
-- Cheerio (to handle the scraping of files)
-- Axios (to handle requests to the websites that Film Scene scrapes from)
+- [Express](https://www.npmjs.com/package/express) (to handle routing)
+- [Express Handlebars](https://www.npmjs.com/package/express-handlebars) (to handle renders for the Handlebars view engine)
+- [Mongoose](https://www.npmjs.com/package/mongoose) (to create models for articles, users, and comments)
+- [Passport](https://www.npmjs.com/package/passport) (to handle third-party OAuth authentication)
+- [Cookie Session](https://www.npmjs.com/package/cookie-session) (to handle the creation of cookies for signed-in users)
+- [Cheerio](https://www.npmjs.com/package/cheerio) (to handle the scraping of files)
+- [Axios](https://www.npmjs.com/package/axios) (to handle requests to the websites that Film Scene scrapes from)
 
 # How It Works
 
@@ -45,6 +55,6 @@ When a user is done visiting the site, logging out is as simple as clicking "Log
 
 Because the site currently scrapes from three different sites and stores the articles from those sites in the database all at once, there's quite a bit of asynchronous code firing in a single function. It typically takes one to two seconds to complete the entire transaction, so while the scraping is done with each page reload, the loading of the articles is done independently of the scrape. This means that fresh articles might show up on the screen one page refresh later than when they entered the database, and this will be fixed in a future build by ensuring that the storing of articles in the database is awaited.
 
-### ##Additional Styling\*\*
+### **Additional Styling**
 
 The site is fully operational but rather bare bones at the moment. The next version will have a more streamlined front end.

@@ -150,8 +150,10 @@ axios.get('/data/articles').then((response) => {
     newCommentsBtn.prepend(newCommentsIcon);
     newCommentsBtn.addEventListener('click', getComments);
     newArticleTitleLink.setAttribute('href', article.linkURL);
+    newArticleTitleLink.setAttribute('target', '_blank');
     newArticleTitleLink.appendChild(newArticleTitle);
     newArticleImgLink.setAttribute('href', article.linkURL);
+    newArticleImgLink.setAttribute('target', '_blank');
     newArticleImgLink.appendChild(newArticleImg);
     newArticleDiv.appendChild(newArticleTitleLink);
     newArticleDiv.appendChild(newArticleImgLink);
