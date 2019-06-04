@@ -4,13 +4,13 @@ Film Scene is a full-stack news-aggregation app for long-form film commentary th
 
 # ToC
 
-* ### [Dependencies](https://github.com/geoffdgeorge/Film-Scene#dependencies)
-    * ##### [Front End](https://github.com/geoffdgeorge/Film-Scene#front-end)
-    * ##### [Back End](https://github.com/geoffdgeorge/Film-Scene#back-end)
-* ### [How It Works](https://github.com/geoffdgeorge/Film-Scene#how-it-works)
-* ### [Future Development](https://github.com/geoffdgeorge/Film-Scene#future-development)
-    * ##### [Awaiting Scraping](https://github.com/geoffdgeorge/Film-Scene#awaiting-scraping)
-    * ##### [Additional Styling](https://github.com/geoffdgeorge/Film-Scene#additional-styling)
+* ### [Dependencies](https://github.com/geoffdgeorge/Film-Scene#dependencies-1)
+    * ##### [Front End](https://github.com/geoffdgeorge/Film-Scene#front-end-1)
+    * ##### [Back End](https://github.com/geoffdgeorge/Film-Scene#back-end-1)
+* ### [How It Works](https://github.com/geoffdgeorge/Film-Scene#how-it-works-1)
+* ### [Future Development](https://github.com/geoffdgeorge/Film-Scene#future-development-1)
+    * ##### [Awaiting Scraping](https://github.com/geoffdgeorge/Film-Scene#awaiting-scraping-1)
+    * ##### [Additional Styling](https://github.com/geoffdgeorge/Film-Scene#additional-styling-1)
 
 # Dependencies
 
