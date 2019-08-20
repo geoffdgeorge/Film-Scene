@@ -18,7 +18,7 @@ function postComment(e) {
   });
 }
 
-function closeComments(e) {
+function closeComments() {
   const { id } = this.dataset;
   const parentDiv = this.parentNode;
   parentDiv.parentNode.removeChild(parentDiv);
